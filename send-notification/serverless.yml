@@ -1,0 +1,49 @@
+service: modak-send-notification
+
+frameworkVersion: 3.34.0
+
+provider:
+  name: aws
+  runtime: go1.x
+  region: us-east-1
+  memorySize: 128
+  environment:
+    DYNAMODB_NOTIFICATION_RATE_LIMIT_RULES_TABLE_NAME: NotificationRateLimitRules
+    DYNAMODB_NOTIFICATION_RATE_LIMIT_CACHE_TABLE_NAME: NotificationRateLimitCache
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - arn:aws:dynamodb:us-east-1:096277168183:table/NotificationRateLimitRules
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:PutItem
+      Resource:
+        - arn:aws:dynamodb:us-east-1:096277168183:table/NotificationRateLimitCache
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
+      Resource:
+        - "*" # to send to any email address in the sandbox
+resources:
+  Resources:
+    V1LogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        RetentionInDays: 5
+package:
+  individually: true
+
+functions:
+  v1:
+    handler: bin/v1
+    package:
+      patterns:
+        - './bin/v1'
+    events:
+      - http:
+          path: /v1
+          method: POST

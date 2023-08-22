@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "990693f6-412f-4a45-ac76-4feb12c9cd86",
+		"name": "Modak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14253386"
+	},
+	"item": [
+		{
+			"name": "send-notifications-event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"notifications\": [\n        {\n            \"type\": \"News\",\n            \"recipient\": \"kahs_kevin@hotmail.com\",\n            \"message\": \"Notification NEWS example\"\n        },\n        {\n            \"type\": \"Marketing\",\n            \"recipient\": \"kaherreras@unal.edu.co\",\n            \"message\": \"Notification MARKETING example\"\n        },\n        {\n            \"type\": \"Status\",\n            \"recipient\": \"kahs_kevin@hotmail.com\",\n            \"message\": \"Notification STATUS example\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6nnkbvf93c.execute-api.us-east-1.amazonaws.com/dev/v1",
+					"protocol": "https",
+					"host": [
+						"6nnkbvf93c",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
